@@ -1,0 +1,11 @@
+<h1 align="center">All Alpha Bloggers</h1>
+
+<div class="container">
+  <% @users.each do |user| %>
+    <div class="card" style="margin-bottom: 5px;">
+      <div class="card-body">
+        <%= link_to user.username, user_path(user) %>'s has <%= pluralize(user.articles.count, "article") if user.articles %>
+      </div>
+    </div>
+  <% end %>
+</div>

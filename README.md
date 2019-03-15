@@ -19,3 +19,5 @@ This is sample blog app created using Ruby on Rails
 - The test used by Alpha-Blog is the generic set test from Rails
 - To add more test cases, `cd test` then add the test
 - To run the test use `rails test` 
+- To display the code coverage of the apps run this command:
+  `cd coverage && open index.html`

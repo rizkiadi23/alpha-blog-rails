@@ -21,3 +21,7 @@ This is sample blog app created using Ruby on Rails
 - To run the test use `rails test` 
 - To display the code coverage of the apps run this command:
   `cd coverage && open index.html`
+
+## Setup Production Environment
+- Start PostgreSQL service if you have installed but it hasn't started
+  `pg_ctl -D /usr/local/var/postgres start`

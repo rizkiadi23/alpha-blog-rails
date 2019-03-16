@@ -4,6 +4,8 @@
   <div class="card" style="margin-bottom: 5px;">
     <div class="card-body">
       <%= link_to "#{category.name}", category_path(category) %> 
+      <br>
+      <small><%= pluralize(category.articles.count, "article") %></small>
     </div>
   </div>
 <% end %>

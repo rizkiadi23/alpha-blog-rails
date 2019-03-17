@@ -1,22 +1,15 @@
-version: "2"
-
-volumes:
-  db-data:
-    external: false
-
+version: '3'
 services:
   db:
-    image: postgres
-    env_file: .env
+    image: postgres:9.6-alpine
     volumes:
-      - db-data:/var/lib/postgresql/db-data
-
-  app:
+      - ./tmp/db:/var/lib/postgresql/data
+  web:
     build: .
-    env_file: .env
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - .:/usr/src/app
+      - .:/alpha-blog
     ports:
-      - "3000:3000"
+      - "80:3000"
     depends_on:
       - db

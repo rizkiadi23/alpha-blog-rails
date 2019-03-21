@@ -1,75 +1,153 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <%= link_to "AlphaBlog", root_path, class: "navbar-brand", id: "logo" %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <%= link_to "Articles", articles_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "About", pages_about_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Users", users_path, class: "nav-link" %>
-      </li>
-      <% if logged_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Actions
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to "New Article", new_article_path, class: "dropdown-item" %>
+<header class="header-global">
+  <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
+    <div class="container">
+      <a class="navbar-brand mr-lg-5" href="./index.html">
+        <img src="img/brand/white.png">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbar_global">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="./index.html">
+                <img src="./assets/img/brand/blue.png">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
           </div>
-        </li>
-      <% end %>
-      <% if logged_in? %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Categories
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <%= link_to "All Categories", categories_path, class: "dropdown-item" %>
-            <% Category.all.each do |category| %>
-              <%= link_to "#{category.name}", category_path(category), class: "dropdown-item" %>
-            <% end %>
-            <% if logged_in? and current_user.admin? %>
-              <%= link_to "Create New Category", new_category_path, class: "dropdown-item" %>
-            <% end %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <ul class="navbar-nav mr-auto">
-        <% if logged_in? %>
+        </div>
+        <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Your Profile <%= "| Admin" if current_user.admin? %>
+            <a href="<%= articles_path %>" class="nav-link" data-toggle="dropdown" href="#" role="button">
+              <i class="ni ni-ui-04 d-lg-none"></i>
+              <span class="nav-link-inner--text">Hover Me!</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "View Profile", user_path(current_user), class: "dropdown-item" %>
-              <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %>
-              <div class="dropdown-divider"></div>
+            <div class="dropdown-menu dropdown-menu-xl">
+              <div class="dropdown-menu-inner">
+                <a href="<%= pages_about_path %>" class="media d-flex align-items-center">
+                  <div class="icon icon-shape bg-gradient-success rounded-circle text-white">
+                    <i class="ni ni-palette"></i>
+                  </div>
+                  <div class="media-body ml-3">
+                    <h6 class="heading text-primary mb-md-1">About</h6>
+                    <p class="description d-none d-md-inline-block mb-0">Check details about the author</p>
+                  </div>
+                </a>
+                <a href="<%= articles_path %>" class="media d-flex align-items-center">
+                  <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
+                    <i class="ni ni-spaceship"></i>
+                  </div>
+                  <div class="media-body ml-3">
+                    <h6 class="heading text-primary mb-md-1">Articles</h6>
+                    <p class="description d-none d-md-inline-block mb-0">Read articles will enhance your knowledge</p>
+                  </div>
+                </a>
+                <a href="<%= users_path %>" class="media d-flex align-items-center">
+                  <div class="icon icon-shape bg-gradient-warning rounded-circle text-white">
+                    <i class="ni ni-ui-04"></i>
+                  </div>
+                  <div class="media-body ml-3">
+                    <h5 class="heading text-warning mb-md-1">Users</h5>
+                    <p class="description d-none d-md-inline-block mb-0">Knowing who made the articles</p>
+                  </div>
+                </a>
+              </div>
             </div>
           </li>
+          <% if logged_in? %>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
+                <i class="ni ni-collection d-lg-none"></i>
+                <span class="nav-link-inner--text">Actions</span>
+              </a>
+              <div class="dropdown-menu">
+                <a href="<%= new_article_path %>" class="dropdown-item">New Article</a>
+                <a href="<%= categories_path %>" class="dropdown-item">Categories</a>
+                <a href="./examples/login.html" class="dropdown-item">Login</a>
+                <a href="./examples/register.html" class="dropdown-item">Register</a>
+              </div>
+            </li>
+          <% end %>
 
-          <li class="nav-item">
-            <%= link_to "Logout", logout_path, method: :delete, class: "nav-link" %>
+          <% if logged_in? %>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
+                <i class="ni ni-collection d-lg-none"></i>
+                <span class="nav-link-inner--text">Categories</span>
+              </a>
+              <div class="dropdown-menu">
+                <a href="<%= categories_path %>" class="dropdown-item">All Categories</a>
+
+                <% Category.all.each do |category| %>
+                  <%= link_to "#{category.name}", category_path(category), class: "dropdown-item" %>
+                <% end %>
+
+                <% if logged_in? and current_user.admin? %>
+                  <%= link_to "Create New Category", new_category_path, class: "dropdown-item" %>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+          <li class="nav-item dropdown">
+            <% if logged_in? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Your Profile <%= "| Admin" if current_user.admin? %>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link_to "View Profile", user_path(current_user), class: "dropdown-item" %>
+                  <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %>
+                  <div class="dropdown-divider"></div>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <%= link_to "Logout", logout_path, method: :delete, class: "nav-link" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "Login", login_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign Up", signup_path, class: "nav-link" %>
+              </li>
+            <% end %>  
           </li>
-        <% else %>
+        </ul>
+        <ul class="navbar-nav align-items-lg-center ml-lg-auto">
           <li class="nav-item">
-            <%= link_to "Login", login_path, class: "nav-link" %>
+            <a class="nav-link nav-link-icon" href="https://www.facebook.com/creativetim" target="_blank" data-toggle="tooltip" title="Like us on Facebook">
+              <i class="fa fa-facebook-square"></i>
+              <span class="nav-link-inner--text d-lg-none">Facebook</span>
+            </a>
           </li>
           <li class="nav-item">
-            <%= link_to "Sign Up", signup_path, class: "nav-link" %>
+            <a class="nav-link nav-link-icon" href="https://www.instagram.com/creativetimofficial" target="_blank" data-toggle="tooltip" title="Follow us on Instagram">
+              <i class="fa fa-instagram"></i>
+              <span class="nav-link-inner--text d-lg-none">Instagram</span>
+            </a>
           </li>
-        <% end %>
-      </ul>
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+          <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="https://twitter.com/creativetim" target="_blank" data-toggle="tooltip" title="Follow us on Twitter">
+              <i class="fa fa-twitter-square"></i>
+              <span class="nav-link-inner--text d-lg-none">Twitter</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-icon" href="https://github.com/creativetimofficial/argon-design-system" target="_blank" data-toggle="tooltip" title="Star us on Github">
+              <i class="fa fa-github"></i>
+              <span class="nav-link-inner--text d-lg-none">Github</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
